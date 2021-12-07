@@ -12,7 +12,7 @@ import {
 
 const Header = (props) => {
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
 
@@ -20,7 +20,7 @@ const Header = (props) => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user);
-        // history.push("/home");
+        navigate("/home", { replace: true });
       }
     });
   }, [userName]);
@@ -40,7 +40,7 @@ const Header = (props) => {
         .signOut()
         .then(() => {
           dispatch(setSignOutState());
-          // history.push("/");
+          navigate("/");
         })
         .catch((err) => alert(err.message));
     }
